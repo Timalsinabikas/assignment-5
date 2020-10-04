@@ -1,0 +1,98 @@
+/* Aim: Write a c++ program to add and subtract time */
+
+#include<iostream>
+using namespace std;
+
+class time1
+{
+ int h,m,s;
+
+ public:
+
+ void settime(int x, int y, int z)
+ {
+ h=x;
+ m=y;
+ s=z;
+ }
+
+ void showtime()
+ {
+  cout<<h<<":"<<m<<":"<<s<<endl;
+ }
+
+ time1 add(time1 t1)
+ {
+  time1 temp;
+  
+  temp.h=this->h+t1.h;
+  temp.m=this->m+t1.m;
+  temp.s=this->s+t1.s;
+
+  if(temp.s>=60) 
+  {
+   temp.m=temp.m+(temp.s)/60;
+   temp.s=temp.s%60;
+  } 
+ 
+  if(temp.m>=60)
+  {
+   temp.h=temp.h+(temp.m)/60;
+   temp.m=temp.m%60;
+  } 
+ 
+ return temp;
+ }
+
+ time1 diff(time1 t1)
+ {
+  time1 tmp;
+
+  if(this->s < t1.s)
+  {
+  --this->m;
+  this->s += 60;
+  }
+
+  tmp.s = this->s - t1.s;
+
+  if(this->m < t1.m)
+  {
+  --this->h;
+  this->m += 60;
+  }
+  
+  tmp.m = this->m - t1.m;
+  tmp.h = this->h - t1.h;
+
+  return tmp;
+ }
+
+};
+
+
+int main()
+{
+ time1 t1,t2,t3;
+ 
+ t1.settime(11,20,20);
+ cout<<endl<<"This is current time: ";
+ t1.showtime();
+
+ t2.settime(2,45,30); 
+ cout<<endl<<"Time to add to the current time: "; 
+ t2.showtime();
+
+ t3=t1.add(t2);
+ cout<<endl<<"New time after adding: ";
+ t3.showtime();
+
+ t1.settime(1,10,45);
+ cout<<endl<<"Time to subtract: ";
+ t1.showtime();
+
+ t2=t3.diff(t1);
+ cout<<endl<<"New time after subtracting: ";
+ t2.showtime();
+ return 0;
+}
